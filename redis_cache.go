@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/redis/go-redis/v9"
+	"github.com/go-redis/redis/v8"
 )
 
 type RedisCacher[T any] struct {

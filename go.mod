@@ -4,7 +4,7 @@ go 1.21.3
 
 require (
 	github.com/coocood/freecache v1.2.4
-	github.com/redis/go-redis/v9 v9.99.1
+	github.com/go-redis/redis/v8 v8.11.5
 )
 
 require (
