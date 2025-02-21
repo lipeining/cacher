@@ -1,6 +1,9 @@
 package multicache
 
-import jsoniter "github.com/json-iterator/go"
+import (
+	"github.com/bytedance/sonic"
+	jsoniter "github.com/json-iterator/go"
+)
 
 type Serializer[T any] interface {
 	Unmarshal(data []byte, v *T) error
@@ -36,5 +39,20 @@ func (s *StringSerializer) Marshal(v *string) ([]byte, error) {
 
 func NewStringSerializer() Serializer[string] {
 	s := StringSerializer{}
+	return &s
+}
+
+type FastJSONSerializer[T any] struct {
+}
+
+func (s *FastJSONSerializer[T]) Unmarshal(data []byte, v *T) error {
+	return sonic.Unmarshal(data, v)
+}
+func (s *FastJSONSerializer[T]) Marshal(v *T) ([]byte, error) {
+	return sonic.Marshal(v)
+}
+
+func NewFastJSONSerializer[T any]() Serializer[T] {
+	s := FastJSONSerializer[T]{}
 	return &s
 }
